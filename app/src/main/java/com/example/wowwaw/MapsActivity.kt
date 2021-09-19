@@ -1,7 +1,9 @@
 package com.example.wowwaw
 
+import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -10,8 +12,10 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.example.wowwaw.databinding.ActivityMapsBinding
+import kotlinx.coroutines.MainScope
 
-class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
+class MapsActivity : AppCompatActivity(), OnMapReadyCallback, MediaPlayer.OnPreparedListener {
+    public val mainScope = MainScope()
 
     private lateinit var mMap: GoogleMap
     private lateinit var binding: ActivityMapsBinding
@@ -44,5 +48,17 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         val sydney = LatLng(-34.0, 151.0)
         mMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+
+        val mapsModel = MapsModel(this)
+        mapsModel.run()
+
+        var mediaPlayer: MediaPlayer = MediaPlayer.create(this, R.raw.aaa)
+        val mHandler = Handler()
+        mHandler.postDelayed({ mediaPlayer.start() }, 2000L)
+
+    }
+
+    override fun onPrepared(p0: MediaPlayer?) {
+        p0?.start()
     }
 }
