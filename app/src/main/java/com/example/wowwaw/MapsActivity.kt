@@ -1,5 +1,6 @@
 package com.example.wowwaw
 
+import android.app.Activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 
@@ -10,11 +11,24 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.example.wowwaw.databinding.ActivityMapsBinding
+import android.content.Intent
+
+import androidx.activity.result.contract.ActivityResultContracts
+import java.io.File
+
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var mMap: GoogleMap
     private lateinit var binding: ActivityMapsBinding
+    private var onSelectFileLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                val data: Intent? = result.data
+                val path = data!!.data!!.path;
+                val file = File(path)
+            }
+        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,5 +58,11 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         val sydney = LatLng(-34.0, 151.0)
         mMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+    }
+
+    fun onLoadButtonClick(view: android.view.View) {
+        val intent = Intent(Intent.ACTION_GET_CONTENT)//todo samsung idet nahui
+        intent.type = "*/*"
+        onSelectFileLauncher.launch(intent)
     }
 }
