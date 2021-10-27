@@ -2,7 +2,8 @@
 
 All notable changes to this project will be documented in this file.
 
-The format is based on [Keep a Changelog][keepachangelog] and this project adheres to [Semantic Versioning][semver].
+The format is based on [Keep a Changelog][keepachangelog] and this project adheres
+to [Semantic Versioning][semver].
 
 > Правила ведения файла `CHANGELOG.md`:
 >
@@ -19,5 +20,21 @@ The format is based on [Keep a Changelog][keepachangelog] and this project adher
 >   - Все ссылки должны оформляться в виде сносок `[LINK]:https://...` и располагались строго в блоке релиза
 >   - Каждая запись **должна** завершаться указанием ссылки на того, кто внёс те или иные изменения
 
+## v0.1.0
+
+### Added
+
+Рабочая версия продукта
+
+- Полная синхронизация клинтов и сервера
+- Выбор файлов
+- Проигрование ближайшего звука на карте
+
+TODO:
+
+- Более информативные метки на карте
+- Перевести сервисы в foreground
+
 [keepachangelog]:https://keepachangelog.com/en/1.0.0/
+
 [semver]:https://semver.org/spec/v2.0.0.html 
